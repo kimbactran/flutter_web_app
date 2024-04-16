@@ -38,26 +38,62 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size(screenSize.width, 70),
-          child: TopBarContents(_opacity)),
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                child: SizedBox(
-                  height: screenSize.height * 0.65,
-                  width: screenSize.width,
-                  child: Image.asset(
-                    'assets/images/background.png',
-                    fit: BoxFit.cover,
-                  ),
+      extendBodyBehindAppBar: true,
+      appBar: screenSize.width < 800
+          ? AppBar(
+              iconTheme: IconThemeData(color: Colors.blue),
+              backgroundColor: Colors.white.withOpacity(_opacity),
+              elevation: 0,
+              title: Text(
+                'Author',
+                style: TextStyle(
+                  color: Color(0xFF077bd7),
+                  fontSize: 26,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 3,
                 ),
               ),
-            ],
-          ),
-        ],
+            )
+          : PreferredSize(
+              preferredSize: Size(screenSize.width, 70),
+              child: TopBarContents(_opacity)),
+      drawer: MenuDrawer(),
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  child: SizedBox(
+                    height: screenSize.height * 0.65,
+                    width: screenSize.width,
+                    child: Image.asset(
+                      'assets/images/background.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Column(
+                  children: [
+                    FloatingQuickAccessBar(screenSize: screenSize),
+                    FeaturedHeading(screenSize: screenSize),
+                    FeaturedTiles(screenSize: screenSize),
+                    MainHeading(
+                      screenSize: screenSize,
+                    ),
+                    MainCarousel(),
+                    SizedBox(
+                      height: screenSize.height / 10,
+                    ),
+                    BottomBar(),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

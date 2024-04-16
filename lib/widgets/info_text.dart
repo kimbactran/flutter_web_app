@@ -16,7 +16,7 @@ class InfoText extends StatelessWidget {
         Text(
           '$type: ',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.blueGrey[200],
             fontSize: 16,
           ),
         ),
